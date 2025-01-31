@@ -72,14 +72,41 @@ class Graph:
         
         # Initialize mst as a square matrix of zeros
         mst = np.zeros((n_nodes, n_nodes))
+        
+        # Keep track of visited nodes 
+        visited = []
+        visited.add(S)
+        
+        # Edges queue
         edges = []
+        heapq.heapify(edges)
 
-        # Add all edges from node 0 to the priority queue
+        # Add all edges from current node (S) to the priority queue
         for v in range(n_nodes):
-          
-            if self.adj_mat[S, v] > 0:
-              
+            
+            # if a node is connected to this node: 
+            if self.adj_mat[S, v] > 0 & v is not in visited:
+                # adding to queue: edge weight of S -> v, S node id, v node id
                 heapq.heappush(edges, (self.adj_mat[S, v], S, v))
+       
+        while len(visited) < num_nodes:
+          
+            # pick the minimum edge weight:
+            edge_weight, current_node, to_add = heapq.heappop(edges)
+            
+            # unless picking this minimum edge weight would
+            # create a cycle
+            if v is not in visited:
+                # Add node and edge to MST
+                S.add(v)
+                self.mst[u, v] = edge_weight
+                self.mst[v, u] = edge_weight 
+                
+                # Add new edges from v to the priority queue
+                for w in range(num_nodes):
+                
+                if self.adj_mat[v, w] > 0 and w not in S:
+                    heapq.heappush(edges, (self.adj_mat[v, w], v, w))
+              
 
-
-        self.mst = mst
+       return self.mst = mst
