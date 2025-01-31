@@ -34,6 +34,17 @@ def check_mst(adj_mat: np.ndarray,
         for j in range(i+1):
             total += mst[i, j]
     assert approx_equal(total, expected_weight), 'Proposed MST has incorrect expected weight'
+    
+    # Check there is the correct number of edges
+    # expected for a mst
+    # i.e. v - 1
+    
+    v = adj_mat.shape[0]
+    n_mst_edges = np.count_nonzero[mst]
+    
+    assert v - 1 = n_mst_edges, "Proposed MST has incorrected number of edges"
+    
+    # ? Maybe add later: Check mst is connected or acyclic 
 
 
 def test_mst_small():
