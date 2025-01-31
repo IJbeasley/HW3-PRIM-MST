@@ -44,7 +44,7 @@ class Graph:
         # Checks: adjacency matrix is in the expected format
         
         # 1. Check it is non-zero 
-        if self.adj_mat.shape[0] == 0 | self.adj_mat == None: 
+        if self.adj_mat.shape[0] == 0 or self.adj_mat is None: 
             raise ValueError("Problem with supplied adjacency matrix: adj_mat is empty") 
 
         # 2. Check adjacency matrix is square
