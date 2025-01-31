@@ -40,9 +40,12 @@ def check_mst(adj_mat: np.ndarray,
     # i.e. v - 1
     
     v = adj_mat.shape[0]
-    n_mst_edges = np.count_nonzero[mst]
+    n_mst_edges = np.count_nonzero[mst] / 2 
     
     assert v - 1 = n_mst_edges, "Proposed MST has incorrected number of edges"
+    
+    # Check number of nodes in mst = number of nodes in adjacency matrix
+    assert n_mst_edges ==  mst.shape[0],  "Proposed MST has incorrected number of nodes"
     
     # ? Maybe add later: Check mst is connected or acyclic 
 
