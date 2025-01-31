@@ -72,3 +72,23 @@ def test_mst_student():
     
     """
     pass
+  
+def test_nonsymmetric_mat_mst():
+    """
+    
+    Unit test to check that the mst function correctly fails when non-symmetric matrix is loaded
+    
+    """
+    # non-symmetric matrix is made from editing
+    # the small.csv and editing two entries
+    # so is square, but not symmetric
+    
+    rect_mat = "./data/small_nonsymmetric.csv"
+    g = Graph(rect_mat)
+    
+    try: 
+      g.construct_mst()
+      assert False, "construct_mst should have raised a value error when given a non-symmetric square matrix"
+    
+    except ValueError as e:
+      assert str(e) == "Problem with supplied adjacency matrix: adj_mat is not symmetric",  "construct_mst should have raised a different value error when given a non-symmetric square matrix"
