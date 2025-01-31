@@ -57,27 +57,28 @@ class Graph:
         
         
         # Initialization 
-          
-        self.mst = None
+        #self.mst = None
 
         # Initialize S  with an arbitrary node (node 0) 
         S = [0]
         
-        
         # number of nodes 
         n_nodes = self.adj_mat.shape[0]
-
-        # in the trivial case where there is only one node, mst is the node
-
-  #     if n_nodes == 1:
-  #          mst = 
-#      else
+        
+        # In trivial case of a single node, mst is a matrix of one '0'
+        if n_nodes == 1:
+            self.mst = np.zeros((1,1))
+            return self.mst
+        
+        # Initialize mst as a square matrix of zeros
         mst = np.zeros((n_nodes, n_nodes))
         edges = []
 
         # Add all edges from node 0 to the priority queue
         for v in range(n_nodes):
+          
             if self.adj_mat[S, v] > 0:
+              
                 heapq.heappush(edges, (self.adj_mat[S, v], S, v))
 
 
