@@ -41,18 +41,28 @@ class Graph:
         `heapify`, `heappop`, and `heappush` functions.
 
         """
-        self.mst = None
+        # Checks: adjacency matrix is in the expected format
+        
+        # 1. Check it is non-zero 
+        if self.adj_mat.shape[0] == 0 | self.adj_mat == None: 
+            raise ValueError("Problem with supplied adjacency matrix: adj_mat is empty") 
 
-        # Initialize S with an arbitrary node (node 0) 
-        S = [0]
-
-        # check adjacency matrix is square
+        # 2. Check adjacency matrix is square
         if self.adj_mat.shape[0] != self.adj_mat.shape[1]:
             raise ValueError("Problem with supplied adjacency matrix: adj_mat is not square") 
         
-        # check adjacency matrix is symmetric 
+        # 3. Check adjacency matrix is symmetric 
         if np.array_equal(self.adj_mat, self.adj_mat.T): 
             raise ValueError("Problem with supplied adjacency matrix: adj_mat is not symmetric")
+        
+        
+        # Initialization 
+          
+        self.mst = None
+
+        # Initialize S  with an arbitrary node (node 0) 
+        S = [0]
+        
         
         # number of nodes 
         n_nodes = self.adj_mat.shape[0]
@@ -62,11 +72,11 @@ class Graph:
   #     if n_nodes == 1:
   #          mst = 
 #      else
-        mst = np.zeros((num_nodes, num_nodes))
+        mst = np.zeros((n_nodes, n_nodes))
         edges = []
 
         # Add all edges from node 0 to the priority queue
-        for v in range(num_nodes):
+        for v in range(n_nodes):
             if self.adj_mat[S, v] > 0:
                 heapq.heappush(edges, (self.adj_mat[S, v], S, v))
 
