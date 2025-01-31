@@ -98,15 +98,16 @@ class Graph:
             # create a cycle
             if v not in visited:
                 # Add node and edge to MST
-                S.add(v)
+                S = [v]
                 self.mst[u, v] = edge_weight
                 self.mst[v, u] = edge_weight 
                 
-                # Add new edges from v to the priority queue
+                # Add new edges from new current node to the edge weight priority queue
+                # repeating the above steps
                 for w in range(num_nodes):
                 
-                if self.adj_mat[v, w] > 0 and w not in S:
-                    heapq.heappush(edges, (self.adj_mat[v, w], v, w))
+                    if self.adj_mat[v, w] > 0 and w not in visited:
+                       heapq.heappush(edges, (self.adj_mat[v, w], v, w))
               
 
        return self.mst = mst
