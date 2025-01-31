@@ -75,7 +75,7 @@ class Graph:
         
         # Keep track of visited nodes 
         visited = []
-        visited.add(S)
+        visited.append(S)
         
         # Edges queue
         edges = []
@@ -99,7 +99,7 @@ class Graph:
             if to_add_node not in visited:
                 # Add node and edge to MST
                 # Mark visited 
-                visited.add(to_add_node)
+                visited.append(to_add_node)
                 S = [to_add_node]
                 mst[current_node, to_add_node] = edge_weight
                 mst[to_add_node, current_node] = edge_weight 
