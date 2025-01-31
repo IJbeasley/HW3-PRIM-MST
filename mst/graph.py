@@ -112,4 +112,4 @@ class Graph:
                        heapq.heappush(edges, (self.adj_mat[to_add_node, v], to_add_node, v))
               
 
-       self.mst = mst
+        self.mst = mst
