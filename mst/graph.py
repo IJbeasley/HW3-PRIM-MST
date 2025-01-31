@@ -85,7 +85,7 @@ class Graph:
         for v in range(n_nodes):
             
             # if a node is connected to this node: 
-            if self.adj_mat[S, v] > 0 & v is not in visited:
+            if self.adj_mat[S, v] > 0 and v not in visited:
                 # adding to queue: edge weight of S -> v, S node id, v node id
                 heapq.heappush(edges, (self.adj_mat[S, v], S, v))
        
@@ -96,7 +96,7 @@ class Graph:
             
             # unless picking this minimum edge weight would
             # create a cycle
-            if v is not in visited:
+            if v not in visited:
                 # Add node and edge to MST
                 S.add(v)
                 self.mst[u, v] = edge_weight
