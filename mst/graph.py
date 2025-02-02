@@ -57,7 +57,6 @@ class Graph:
         
         
         # Initialization 
-        #self.mst = None
 
         # Initialize S  with an arbitrary node (node 0) 
         S = 0
@@ -93,24 +92,8 @@ class Graph:
         while len(visited) < n_nodes:
           
             # pick the minimum edge weight:
-            
-            # print("\n \n \n")
-            # print("Edges ... before heappop")
-            # print(edges)
-            
             edge_weight, current_node, to_add_node = heapq.heappop(edges)
             
-            # print("Edges ... after heappop")
-            # print(edges)
-            
-            # print("\n")
-            # 
-            # print(edge_weight)
-            # print(current_node)
-            # print(to_add_node)
-            
-            #raise ValueError("testing")
-
             # unless picking this minimum edge weight would
             # create a cycle
             # in that case pick the next minimum
@@ -129,8 +112,6 @@ class Graph:
                 
                 # Add new edges from new current node to the edge weight priority queue
                 # repeating the above steps
-                
-#                print(n_nodes)
                 for v in range(n_nodes):
                     
                     if self.adj_mat[to_add_node, v] > 0 and v not in visited:
