@@ -6,7 +6,7 @@ build-backend = "flit_core.buildapi"
 pythonpath = ["."]
 
 [project]
-name = "search"
+name = "mst"
 authors = [{name = "Isobel Beasley", email = "isobel.beasley@ucsf.edu"}]
 readme = "README.md"
 license = {file = "LICENSE"}
