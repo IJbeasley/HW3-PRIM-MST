@@ -93,7 +93,23 @@ class Graph:
         while len(visited) < n_nodes:
           
             # pick the minimum edge weight:
+            
+            # print("\n \n \n")
+            # print("Edges ... before heappop")
+            # print(edges)
+            
             edge_weight, current_node, to_add_node = heapq.heappop(edges)
+            
+            # print("Edges ... after heappop")
+            # print(edges)
+            
+            # print("\n")
+            # 
+            # print(edge_weight)
+            # print(current_node)
+            # print(to_add_node)
+            
+            #raise ValueError("testing")
 
             # unless picking this minimum edge weight would
             # create a cycle
@@ -114,11 +130,12 @@ class Graph:
                 # Add new edges from new current node to the edge weight priority queue
                 # repeating the above steps
                 
+#                print(n_nodes)
                 for v in range(n_nodes):
                     
-                    if self.adj_mat[current_node, v] > 0 and v not in visited:
+                    if self.adj_mat[to_add_node, v] > 0 and v not in visited:
                       
-                       heapq.heappush(edges, (self.adj_mat[current_node, v], current_node, v))
+                       heapq.heappush(edges, (self.adj_mat[to_add_node, v], to_add_node, v))
               
 
         self.mst = mst
