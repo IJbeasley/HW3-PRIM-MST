@@ -52,7 +52,7 @@ class Graph:
             raise ValueError("Problem with supplied adjacency matrix: adj_mat is not square") 
         
         # 3. Check adjacency matrix is symmetric 
-        if np.array_equal(self.adj_mat, self.adj_mat.T): 
+        if not np.allclose(self.adj_mat, self.adj_mat.T): 
             raise ValueError("Problem with supplied adjacency matrix: adj_mat is not symmetric")
         
         
@@ -60,7 +60,7 @@ class Graph:
         #self.mst = None
 
         # Initialize S  with an arbitrary node (node 0) 
-        S = [0]
+        S = 0
         
         # number of nodes 
         n_nodes = self.adj_mat.shape[0]
@@ -77,39 +77,48 @@ class Graph:
         visited = []
         visited.append(S)
         
-        # Edges queue
+        # Initialize edges queue
         edges = []
         heapq.heapify(edges)
 
         # Add all edges from current node (S) to the priority queue
-        for v in range(n_nodes):
-            
+        for v, edge_weight in enumerate(self.adj_mat[S]):
+          
             # if a node is connected to this node: 
-            if self.adj_mat[S, v] > 0 and v not in visited:
-                # adding to queue: edge weight of S -> v, S node id, v node id
-                heapq.heappush(edges, (self.adj_mat[S, v], S, v))
+            if edge_weight > 0:
+                # add to queue: 
+                # specifically add: edge weight of S -> v, S node id, v node id
+                heapq.heappush(edges, (edge_weight, S, v))
        
         while len(visited) < n_nodes:
           
             # pick the minimum edge weight:
             edge_weight, current_node, to_add_node = heapq.heappop(edges)
-            
+
             # unless picking this minimum edge weight would
             # create a cycle
-            if to_add_node not in visited:
+            # in that case pick the next minimum
+            if to_add_node in visited:
+               continue 
+            
+            else:
+            #if to_add_node not in visited:
                 # Add node and edge to MST
+                
                 # Mark visited 
                 visited.append(to_add_node)
-                S = [to_add_node]
+                
                 mst[current_node, to_add_node] = edge_weight
                 mst[to_add_node, current_node] = edge_weight 
                 
                 # Add new edges from new current node to the edge weight priority queue
                 # repeating the above steps
-                for v in range(n_nodes):
                 
-                    if self.adj_mat[to_add_node, v] > 0 and v not in visited:
-                       heapq.heappush(edges, (self.adj_mat[to_add_node, v], to_add_node, v))
+                for v in range(n_nodes):
+                    
+                    if self.adj_mat[current_node, v] > 0 and v not in visited:
+                      
+                       heapq.heappush(edges, (self.adj_mat[current_node, v], current_node, v))
               
 
         self.mst = mst
