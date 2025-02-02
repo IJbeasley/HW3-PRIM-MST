@@ -130,8 +130,8 @@ def test_unconnected_mat_mst():
     Unit test to check that the mst function correctly fails when a non-connected network is loaded
 
     """
-    # non-symmetric matrix is made from deleting
-    # one row from small.csv
+    # non-connected matrix is made from editing
+    # small.csv to have node 1 no longer connected to any other node
 
     test_mat = "./data/small_nonconnected.csv"
     g = Graph(test_mat)
