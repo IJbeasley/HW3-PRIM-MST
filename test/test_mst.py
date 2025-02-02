@@ -40,12 +40,14 @@ def check_mst(adj_mat: np.ndarray,
     # i.e. v - 1
     
     v = adj_mat.shape[0]
-    n_mst_edges = np.count_nonzero[mst] / 2 
+    observed_edges = np.count_nonzero(mst) / 2 
+    expected_edges = v - 1
     
-    assert v - 1 == n_mst_edges, "Proposed MST has incorrected number of edges"
+    assert expected_edges == observed_edges, "Proposed MST has incorrected number of edges"
+    
     
     # Check number of nodes in mst = number of nodes in adjacency matrix
-    assert n_mst_edges ==  mst.shape[0],  "Proposed MST has incorrected number of nodes"
+    assert adj_mat.shape[0] ==  mst.shape[0],  "Proposed MST has incorrected number of nodes"
     
     # ? Maybe add later: Check mst is connected or acyclic 
 
@@ -64,7 +66,7 @@ def test_mst_small():
 
 def test_mst_single_cell_data():
     """
-    
+
     Unit test for the construction of a minimum spanning tree using single cell
     data, taken from the Slingshot R package.
 
@@ -81,41 +83,41 @@ def test_mst_single_cell_data():
 
 def test_notsquare_mat_mst():
     """
-    
+
     Unit test to check that the mst function correctly fails when a non-square matrix is loaded
-    
+
     """
     # non-symmetric matrix is made from deleting
-    # one row from small.csv 
-    
+    # one row from small.csv
+
     test_mat = "./data/small_nonsquare.csv"
     g = Graph(test_mat)
-    
-    try: 
+
+    try:
       g.construct_mst()
       assert False, "construct_mst should have raised a value error when given a non-square matrix"
-    
+
     except ValueError as e:
       assert str(e) == "Problem with supplied adjacency matrix: adj_mat is not square",  "construct_mst should have raised a different value error when given a non-square matrix"
 
-  
-  
+
+
 def test_nonsymmetric_mat_mst():
     """
-    
+
     Unit test to check that the mst function correctly fails when non-symmetric matrix is loaded
-    
+
     """
     # non-symmetric matrix is made from editing
     # the small.csv and modifying the value of two entries
     # so is square, but not symmetric
-    
+
     test_mat = "./data/small_nonsymmetric.csv"
     g = Graph(test_mat)
-    
-    try: 
+
+    try:
       g.construct_mst()
       assert False, "construct_mst should have raised a value error when given a non-symmetric square matrix"
-    
+
     except ValueError as e:
       assert str(e) == "Problem with supplied adjacency matrix: adj_mat is not symmetric",  "construct_mst should have raised a different value error when given a non-symmetric square matrix"
