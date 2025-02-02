@@ -121,3 +121,25 @@ def test_nonsymmetric_mat_mst():
 
     except ValueError as e:
       assert str(e) == "Problem with supplied adjacency matrix: adj_mat is not symmetric",  "construct_mst should have raised a different value error when given a non-symmetric square matrix"
+
+
+
+def test_unconnected_mat_mst():
+    """
+
+    Unit test to check that the mst function correctly fails when a non-connected network is loaded
+
+    """
+    # non-symmetric matrix is made from deleting
+    # one row from small.csv
+
+    test_mat = "./data/small_nonconnected.csv"
+    g = Graph(test_mat)
+
+    try:
+      g.construct_mst()
+      assert False, "construct_mst should have raised a value error when given a non-connected matrix"
+
+    except ValueError as e:
+      assert str(e) == "Graph is not connected; MST cannot be formed.",  "construct_mst should have raised a different value error when given a non-connected matrix"
+

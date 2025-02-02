@@ -91,6 +91,10 @@ class Graph:
        
         while len(visited) < n_nodes:
           
+            if not edges:
+               raise ValueError("Graph is not connected; MST cannot be formed.")
+
+          
             # pick the minimum edge weight:
             edge_weight, current_node, to_add_node = heapq.heappop(edges)
             
